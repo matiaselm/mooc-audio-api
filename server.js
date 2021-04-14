@@ -1,34 +1,36 @@
 // server.js
+import dotenv from 'dotenv';
+import express from 'express';
+import { json, urlencoded } from 'body-parser';
+import cors from 'cors';
+import connectMongo from './db/db.js';
 
-require('dotenv').config({ path: '.env' });
+dotenv.config({ path: '.env' });
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const { Wit } = require('node-wit');
+const currentDate = new Date();
+const time = currentDate.getHours() + ":" + currentDate.getMinutes();
 
-const client = new Wit({
-  accessToken: process.env.WIT_ACCESS_TOKEN,
-});
+(async () => {
+  try {
+    const conn = await connectMongo();
 
-const app = express();
+    if (conn) {
+      console.log(`[${time}] Connected successfully`);
+    } else {
+      console.error({ message: `[${time}] Connection to mongo failed` })
+    }
 
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+    const app = express();
 
-app.post('/chat', (req, res) => {
-  const { message } = req.body;
+    app.use(cors());
+    app.use(json());
+    app.use(urlencoded({ extended: true }));
 
-  client
-    .message(message)
-    .then(data => {
-      console.log(data);
-    })
-    .catch(error => console.log(error));
-});
+    app.use('/audio', audioRoute);
 
-app.set('port', process.env.PORT || 7777);
-const server = app.listen(app.get('port'), () => {
-  console.log(`Express running → PORT ${server.address().port}`);
-});
+    app.listen({ port: 3000 }, () =>
+      console.log(`[${time}] Server ready at localhost:3000`));
+  } catch (e) {
+    console.error({ message: e.message })
+  }
+})();
