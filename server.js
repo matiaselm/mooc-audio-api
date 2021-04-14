@@ -4,6 +4,7 @@ import express from 'express';
 import { json, urlencoded } from 'body-parser';
 import cors from 'cors';
 import connectMongo from './db/db.js';
+import audioRoute from './routes/audioRoute.js';
 
 dotenv.config({ path: '.env' });
 

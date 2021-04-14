@@ -10,5 +10,7 @@ const audioSchema = new Schema({
     genre: String,      // Don't know if this'll be shown
     date: Date,         // When uploaded to the internet
     artwork: String,    // The artwork that'll be shown if available   
-    duration: Number    // Duration in seconds unformatted
-})
+    duration: mongoose.Decimal128    // Duration in seconds unformatted
+});
+
+export default mongoose.model('Audio', audioSchema);
