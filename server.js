@@ -16,7 +16,7 @@ const time = currentDate.getHours() + ":" + currentDate.getMinutes();
     const conn = await connectMongo();
 
     if (conn) {
-      console.log(`[${time}] Connected successfully`);
+      console.log(`[${time}] Mongo connected`);
     } else {
       console.error({ message: `[${time}] Connection to mongo failed` })
     }
