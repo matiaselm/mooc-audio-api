@@ -1,7 +1,6 @@
 // server.js
 import dotenv from 'dotenv';
 import express from 'express';
-import { json, urlencoded } from 'body-parser';
 import cors from 'cors';
 import connectMongo from './db/db.js';
 import audioRoute from './routes/audioRoute.js';
@@ -24,8 +23,6 @@ const time = currentDate.getHours() + ":" + currentDate.getMinutes();
     const app = express();
 
     app.use(cors());
-    app.use(json());
-    app.use(urlencoded({ extended: true }));
 
     app.use('/audio', audioRoute);
 
