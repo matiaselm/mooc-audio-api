@@ -56,9 +56,31 @@ const note_post = async (req, res) => {
     }
 }
 
-export {
+const note_list_get = async (req, res) => {
+    try {
+        await note.find({ audioID: req.body.audioID, userID: req.body.userID }).then((response) => {
+            res.status(200).json(response)
+        })
+    } catch (e) {
+        res.status(400).json(e)
+    }
+}
+
+const note_get = async (req, res) => {
+    try {
+        await note.findById(req.params.id).then((note) => {
+            res.status(200).json(note)
+        })
+    } catch (e) {
+        res.status(400).json(e)
+    }
+}
+
+export default {
     user_post,
     user_get,
     user_modify,
-    note_post
+    note_post,
+    note_get,
+    note_list_get,
 };

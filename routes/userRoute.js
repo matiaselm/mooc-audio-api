@@ -1,15 +1,19 @@
 import express from 'express';
 const router = express.Router();
-import { user_get, user_post, user_modify, note_post } from '../controllers/userController.js';
+import userController from '../controllers/userController.js';
 
 router.route('/')
-    .post(user_post);
+    .post(userController.user_post);
 
 router.route('/note')
-    .post(note_post);
+    .post(userController.note_post)
+    .get(userController.note_list_get);
+
+router.route('/note/:id')
+    .get(userController.note_get);
 
 router.route('/:id')
-    .get(user_get)
-    .put(user_modify);
+    .get(userController.user_get)
+    .put(userController.user_modify);
 
 export default router;
