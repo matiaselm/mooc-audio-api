@@ -1,5 +1,6 @@
 'use strict';
 import user from '../models/User.js';
+import note from '../models/Note.js';
 
 const user_post = async (req, res) => {
     try {
@@ -11,7 +12,7 @@ const user_post = async (req, res) => {
         });
         res.status(200).json(`user created with id ${post._id}`)
     } catch (e) {
-        res.status(400).send(e.message)
+        res.status(500).send(e.message)
     }
 };
 
@@ -22,7 +23,7 @@ const user_get = async (req, res) => {
         })
     }
     catch (e) {
-        res.status(400).send(e)
+        res.status(500).send(e)
     }
 };
 
@@ -37,12 +38,27 @@ const user_modify = async (req, res) => {
                 res.status(200).json(user)
             })
     } catch (error) {
-        res.status(400).json(error)
+        res.status(500).json(error)
     }
 };
+
+const note_post = async (req, res) => {
+    try {
+        const post = await note.create({
+            timestamp: req.body.timestamp,      // The bookmarks timestamp
+            data: req.body.data,                // Whatever the user has written up from that part
+            audioID: req.body.audioID,          // From what audio the note is from
+            userID: req.body.userID             // Id of the user
+        })
+        res.status(200).json(`note created with id ${post._id} for user ${post.userID}`)
+    } catch (e) {
+        res.status(500).json(e)
+    }
+}
 
 export {
     user_post,
     user_get,
-    user_modify
+    user_modify,
+    note_post
 };
