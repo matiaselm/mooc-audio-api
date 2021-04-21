@@ -10,7 +10,8 @@ const user_post = async (req, res) => {
             audio: null,
             notes: null
         });
-        res.status(200).json(`user created with id ${post._id}`)
+        console.log('New user added: ', post._id)
+        return res.status(200).json(post)
     } catch (e) {
         res.status(500).send(e.message)
     }
