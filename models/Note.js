@@ -5,8 +5,14 @@ const Schema = mongoose.Schema;
 const noteSchema = new Schema({
     timestamp: Number,          // The bookmarks timestamp
     data: String,               // Whatever the user has written up from that part
-    audioID: String,            // From what audio the note is from
-    userID: String,             // Id of the user
+    audioID: {
+        type: Schema.Types.ObjectID,    // Id of the user
+        ref: 'audioID'
+    },            // From what audio the note is from
+    userID: {
+        type: Schema.Types.ObjectID,    // Id of the user
+        ref: 'userID'
+    }            
 });
 
 export default mongoose.model('Note', noteSchema);

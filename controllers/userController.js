@@ -1,6 +1,7 @@
 'use strict';
 import user from '../models/User.js';
 import note from '../models/Note.js';
+import audio from '../models/Audio.js';
 
 const user_post = async (req, res) => {
     try {
@@ -51,20 +52,25 @@ const note_post = async (req, res) => {
             audioID: req.body.audioID,          // From what audio the note is from
             userID: req.body.userID             // Id of the user
         })
-        res.status(200).json(`note created with id ${post._id} for user ${post.userID}`)
+        res.status(200).json(`note "${post.data}" for user ${post.userID}`)
     } catch (e) {
         res.status(500).json(e)
     }
 }
 
 const note_list_get = async (req, res) => {
-    try {
-        await note.find({ audioID: req.body.audioID, userID: req.body.userID }).then((response) => {
-            res.status(200).json(response)
+    console.log('User id: ', req.query.userID)
+    note.find({ userID: req.query.userID })
+        .populate({ path: 'audioID', model: audio })
+        .exec((e, response) => {
+            if (e) {
+                console.error(e.message)
+                res.status(400).json(e)
+            } else {
+                console.log('Response: ', response)
+                res.status(200).json(response)
+            }
         })
-    } catch (e) {
-        res.status(400).json(e)
-    }
 }
 
 const note_get = async (req, res) => {
