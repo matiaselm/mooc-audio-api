@@ -67,7 +67,7 @@ const note_list_get = async (req, res) => {
                 console.error(e.message)
                 res.status(400).json(e)
             } else {
-                console.log('Response: ', response)
+                // console.log('Response: ', response)
                 res.status(200).json(response)
             }
         })
