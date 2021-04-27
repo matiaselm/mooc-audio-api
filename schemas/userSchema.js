@@ -8,7 +8,7 @@ export default gql`
     }
     
     type User {
-        _id: ID
+        _id: ID!
         name: String
         position: Float
         audio: Audio   
