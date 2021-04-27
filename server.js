@@ -1,4 +1,7 @@
 // server.js
+import { ApolloServer } from 'apollo-server-express';
+import schemas from './schemas/index.js';
+import resolvers from './resolvers/index.js';
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
@@ -21,8 +24,15 @@ const time = currentDate.getHours() + ":" + currentDate.getMinutes();
       console.error({ message: `[${time}] Connection to mongo failed` })
     }
 
+    const apolloServer = new ApolloServer({
+      typeDefs: schemas,
+      resolvers
+    });
+
+    apolloServer.applyMiddleware({app});
+
     const app = express();
-    app.use(express.urlencoded({extended: false}));
+    app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
     app.use(cors());
 
@@ -32,6 +42,6 @@ const time = currentDate.getHours() + ":" + currentDate.getMinutes();
     app.listen({ port: 3000 }, () =>
       console.log(`[${time}] Server ready at localhost:3000`));
   } catch (e) {
-    console.error({ message: e.message })
+    console.error(`[${time}] error: ${e.message}`)
   }
 })();

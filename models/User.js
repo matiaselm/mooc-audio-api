@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     name: String,       // Name of the user if they so want 
-    progress: Number,   // Progress of current audio
+    position: Number,   // Position of current audio
     audio: { type: Schema.Types.ObjectID, ref: 'Audio' },      // Current audio listening to
     notes: [{ type: Schema.Types.ObjectID, ref: 'Note' }]      // Collection of bookmarks the user has taken
 });
