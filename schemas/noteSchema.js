@@ -1,5 +1,5 @@
 'use strict';
-import {gql} from 'apollo-server-express';
+import { gql } from 'apollo-server-express';
 
 export default gql`
     type Note {
@@ -8,5 +8,11 @@ export default gql`
         data: String         
         audioID: Audio           
         userID: User
+    }
+
+    extend type Mutation {
+        DeleteNote(
+            _id: ID
+        ): String
     }
 `

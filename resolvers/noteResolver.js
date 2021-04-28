@@ -6,7 +6,7 @@ export default {
         return Note.findById(parent)
     },
     Mutation: {
-        Delete: async (_, args) => {
+        DeleteNote: async (_, args) => {
             return Note.findByIdAndDelete(args.id)
         }
     }

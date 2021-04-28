@@ -17,19 +17,19 @@ export default gql`
         genre: String,   
         date: String,      
         artwork: String, 
-        duration: Float  
+        duration: Float
     }
 
     extend type Mutation {
         AddAudio(           
-            url: String,     
-            title: String,   
-            artist: String,  
-            album: String,   
-            genre: String,   
-            date: String,      
-            artwork: String, 
-            duration: Float 
+            url: String!,     
+            title: String!,   
+            artist: String!,  
+            album: String!,   
+            genre: String!,   
+            date: String!,      
+            artwork: String!, 
+            duration: Float!
         ): Audio
 
         DeleteAudio(
@@ -44,7 +44,7 @@ export default gql`
             genre: String,   
             date: String,      
             artwork: String, 
-            duration: Float 
+            duration: Float  
         ): Audio
     }
 `

@@ -15,30 +15,40 @@ export default gql`
         notes: [Note]      
     }
 
-    input notes {
-        _id: ID
+    input AudioInput {           
+        url: String,     
+        title: String,   
+        artist: String,  
+        album: String,   
+        genre: String,   
+        date: String,      
+        artwork: String, 
+        duration: Float 
+    }
+
+    input NoteInput {
         timestamp: Float
         data: String         
-        audioID: String          
+        audioID: String           
         userID: String
     }
 
     extend type Mutation {
-        Delete(
+        DeleteUser(
             _id: ID
         ): String
 
         AddUser(
             name: String
-            audio: Audio
-            notes: [Note]
+            audio: AudioInput
+            notes: [NoteInput]
             position: Float
         ): User
 
         ModifyUser(
             name: String
-            audio: Audio
-            notes: [Note]
+            audio: AudioInput
+            notes: [NoteInput]
             position: Float
         ): User
     }

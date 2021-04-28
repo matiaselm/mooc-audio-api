@@ -17,6 +17,7 @@ const time = currentDate.getHours() + ":" + currentDate.getMinutes();
 (async () => {
   try {
     const conn = await connectMongo();
+    const app = express();
 
     if (conn) {
       console.log(`[${time}] Mongo connected`);
@@ -24,20 +25,18 @@ const time = currentDate.getHours() + ":" + currentDate.getMinutes();
       console.error({ message: `[${time}] Connection to mongo failed` })
     }
 
+    app.use(express.urlencoded({ extended: false }));
+    app.use(express.json());
+    app.use(cors());
+    app.use('/audio', audioRoute);
+    app.use('/user', userRoute);
+
     const apolloServer = new ApolloServer({
       typeDefs: schemas,
       resolvers
     });
 
     apolloServer.applyMiddleware({app});
-
-    const app = express();
-    app.use(express.urlencoded({ extended: false }));
-    app.use(express.json());
-    app.use(cors());
-
-    app.use('/audio', audioRoute);
-    app.use('/user', userRoute);
 
     app.listen({ port: 3000 }, () =>
       console.log(`[${time}] Server ready at localhost:3000`));

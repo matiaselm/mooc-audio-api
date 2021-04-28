@@ -13,7 +13,7 @@ export default {
         }
     },
     Mutation: {
-        Delete: async (_, args) => {
+        DeleteUser: async (_, args) => {
             return User.findByIdAndDelete(args.id)
         },
         AddUser: async (_, args) => {
@@ -28,7 +28,7 @@ export default {
                 const response = newUser.save();
                 return response;
             } catch (e) {
-                return e
+                console.error(e)
             }
         },
         ModifyUser: async (_, args) => {
@@ -37,7 +37,7 @@ export default {
                 const modifiedUser = await User.findByIdAndUpdate(id, { ...data }).save();
                 return modifiedUser
             } catch (e) {
-                return e
+                console.error(e)
             }
         }
     },
