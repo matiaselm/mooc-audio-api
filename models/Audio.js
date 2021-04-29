@@ -1,6 +1,7 @@
 'use strict';
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
+const Float = mongoose.Decimal128
 
 const audioSchema = new Schema({
     url: String,        // Load media from the network
@@ -10,7 +11,7 @@ const audioSchema = new Schema({
     genre: String,      // Don't know if this'll be shown
     date: Date,         // When uploaded to the internet
     artwork: String,    // The artwork that'll be shown if available   
-    duration: mongoose.Decimal128    // Duration in seconds unformatted
+    duration: Float     // Duration in seconds unformatted
 });
 
 export default mongoose.model('Audio', audioSchema);
