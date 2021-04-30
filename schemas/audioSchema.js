@@ -4,12 +4,12 @@ import GraphQLDate from 'graphql-date';
 
 export default gql`
     extend type Query {
-        Audio: Audio
+        Audio(id: ID!): Audio
         Audios: [Audio]
     }
 
     type Audio {
-        _id: ID,            
+        id: ID,            
         url: String,     
         title: String,   
         artist: String,  
@@ -22,28 +22,29 @@ export default gql`
 
     extend type Mutation {
         AddAudio(           
-            url: String!,     
-            title: String!,   
-            artist: String!,  
-            album: String!,   
-            genre: String!,   
-            date: String!,      
-            artwork: String!, 
+            url: String!     
+            title: String!   
+            artist: String!  
+            album: String!   
+            genre: String!   
+            date: String!      
+            artwork: String! 
             duration: Float!
         ): Audio
 
         DeleteAudio(
-            _id: ID
+            id: ID!
         ): String
 
-        ModifyAudio(          
-            url: String,     
-            title: String,   
-            artist: String,  
-            album: String,   
-            genre: String,   
-            date: String,      
-            artwork: String, 
+        ModifyAudio(
+            id: ID!          
+            url: String   
+            title: String   
+            artist: String  
+            album: String   
+            genre: String   
+            date: String      
+            artwork: String 
             duration: Float  
         ): Audio
     }

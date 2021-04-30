@@ -4,10 +4,7 @@ import schemas from './schemas/index.js';
 import resolvers from './resolvers/index.js';
 import dotenv from 'dotenv';
 import express from 'express';
-import cors from 'cors';
 import connectMongo from './db/db.js';
-import audioRoute from './routes/audioRoute.js';
-import userRoute from './routes/userRoute.js';
 
 dotenv.config({ path: '.env' });
 
@@ -25,21 +22,30 @@ const time = currentDate.getHours() + ":" + currentDate.getMinutes();
       console.error({ message: `[${time}] Connection to mongo failed` })
     }
 
-    app.use(express.urlencoded({ extended: false }));
-    app.use(express.json());
-    app.use(cors());
-    app.use('/audio', audioRoute);
-    app.use('/user', userRoute);
-
-    const apolloServer = new ApolloServer({
+    // checkouAuthentication = passport/authenticate.js
+    const server = new ApolloServer({
       typeDefs: schemas,
       resolvers
+      /* TODO
+      context: async ({ req, res }) => {
+        try {
+          const user = await checkAuthentication(req, res);
+          return {
+            req, res, user
+          }
+        } catch (error) {
+          console.log(`Context error: ${error.message}`);
+        }
+      } */
     });
+    await server.start();
+    server.applyMiddleware({ app, path: '/graphql' });
 
-    apolloServer.applyMiddleware({app});
-
-    app.listen({ port: 3000 }, () =>
+  /*  app.listen({ port: 3000 }, () =>
       console.log(`[${time}] Server ready at localhost:3000`));
+  */
+    await new Promise(resolve => app.listen({ port: 3000 }, resolve));
+    console.log(`[${time}] Server ready at localhost:3000`);
   } catch (e) {
     console.error(`[${time}] error: ${e.message}`)
   }

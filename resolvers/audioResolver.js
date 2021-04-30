@@ -28,7 +28,12 @@ export default {
             }
         },
         DeleteAudio: async (_, args) => {
-            return Audio.findByIdAndDelete(args.id)
+            try {
+                await (await Audio.findByIdAndDelete(args.id)).save();
+                return `deleted audio ${args.id}`
+            } catch (e) {
+                return e.message
+            }
         },
         ModifyAudio: async (_, args) => {
             try {

@@ -3,12 +3,12 @@ import {gql} from 'apollo-server-express';
 
 export default gql`
     extend type Query {
-        User: User
+        User(id: ID!): User
         Users: [User]
     }
     
     type User {
-        _id: ID!
+        id: ID!
         name: String
         position: Float
         audio: Audio   
@@ -35,7 +35,7 @@ export default gql`
 
     extend type Mutation {
         DeleteUser(
-            _id: ID
+            id: ID
         ): String
 
         AddUser(
