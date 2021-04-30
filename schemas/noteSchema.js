@@ -6,13 +6,13 @@ export default gql`
         Note(id: ID!): Note
         Notes(userID: ID!): [Note]
     }
-    
+
     type Note {
         id: ID
         timestamp: Float
         data: String         
-        audioID: Audio           
-        userID: User
+        audioID: String           
+        userID: String
     }
 
     extend type Mutation {
@@ -23,8 +23,8 @@ export default gql`
         AddNote(
             timestamp: Float!
             data: String!         
-            audioID: String!           
-            userID: String!
+            audioID: ID!           
+            userID: ID!
         ): String
     }
 `

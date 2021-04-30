@@ -15,17 +15,22 @@ export default {
     },
     Mutation: {
         DeleteNote: async (_, args) => {
-            return Note.findByIdAndDelete(args.id)
+            try{
+                Note.findByIdAndDelete(args.id)
+                return `note ${args.id} deleted`
+            } catch(e){
+                return e.message
+            }
         },
         AddNote: async (_, args) => {
             try {
-                await Note.create({
+                const note = await Note.create({
                     timestamp: args.timestamp,
                     data: args.data,
                     audioID: args.audioID,
                     userID: args.userID
                 })
-                return `Note ${args.data} for user ${args.userID}`
+                return `Note ${note.data} ${note.id} created for user ${note.userID}`
             } catch (e) {
                 return e.message
             }
