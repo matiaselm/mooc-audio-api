@@ -9,14 +9,14 @@ export default gql`
     }
 
     type Audio {
-        id: ID,            
-        url: String,     
-        title: String,   
-        artist: String,  
-        album: String,   
-        genre: String,   
-        date: String,      
-        artwork: String, 
+        id: ID          
+        url: String     
+        title: String   
+        artist: String  
+        album: String   
+        genre: String   
+        date: String      
+        artwork: String 
         duration: Float
     }
 

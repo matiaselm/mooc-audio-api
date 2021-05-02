@@ -1,24 +1,30 @@
 'use strict';
 import Note from "../models/Note.js";
+import audio from '../models/Audio.js';
 
 export default {
-    Note: (parent) => {
-        return Note.find({ userID: parent })
+    User: {
+        notes: (parent) => {
+            const response = Note.find({ userID: parent })
+            .populate('audioID').exec()
+            return response
+        }
     },
     Query: {
         Note: async (_, args) => {
             return Note.find();
         },
         Notes: async (_, args) => {
+            console.log('NOTES', args.userID)
             return Note.find({ userID: args.userID });
         }
     },
     Mutation: {
         DeleteNote: async (_, args) => {
-            try{
+            try {
                 Note.findByIdAndDelete(args.id)
                 return `note ${args.id} deleted`
-            } catch(e){
+            } catch (e) {
                 return e.message
             }
         },

@@ -11,8 +11,8 @@ export default gql`
         id: ID
         timestamp: Float
         data: String         
-        audioID: String           
-        userID: String
+        audioID: Audio        
+        userID: User
     }
 
     extend type Mutation {

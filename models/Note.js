@@ -7,11 +7,11 @@ const noteSchema = new Schema({
     data: String,               // Whatever the user has written up from that part
     audioID: {
         type: Schema.Types.ObjectID,    // Id of the user
-        ref: 'audioID'
+        ref: 'Audio'
     },            // From what audio the note is from
     userID: {
         type: Schema.Types.ObjectID,    // Id of the user
-        ref: 'userID'
+        ref: 'User'
     }            
 });
 
