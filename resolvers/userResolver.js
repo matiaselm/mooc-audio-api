@@ -19,9 +19,10 @@ export default {
         AddUser: async (_, args) => {
             try {
                 const data = {
-                    name: args.name,
-                    audio: args.audio,
-                    notes: [args.note],
+                    name: '',
+                    audio: null,
+                    language: 'en_EN',
+                    notes: [null],
                     position: null
                 };
                 const newUser = new User(data);

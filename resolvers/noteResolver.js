@@ -23,6 +23,7 @@ export default {
             }
         },
         AddNote: async (_, args) => {
+            console.log('addnote', JSON.stringify(args))
             try {
                 const note = await Note.create({
                     timestamp: args.timestamp,
@@ -32,6 +33,7 @@ export default {
                 })
                 return `Note ${note.data} ${note.id} created for user ${note.userID}`
             } catch (e) {
+                console.log(e)
                 return e.message
             }
         }

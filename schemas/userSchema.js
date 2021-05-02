@@ -1,5 +1,5 @@
 'use strict';
-import {gql} from 'apollo-server-express';
+import { gql } from 'apollo-server-express';
 
 export default gql`
     extend type Query {
@@ -11,6 +11,7 @@ export default gql`
         id: ID!
         name: String
         position: Float
+        language: String
         audio: Audio   
         notes: [Note]      
     }
@@ -40,6 +41,7 @@ export default gql`
 
         AddUser(
             name: String
+            language: String
             audio: AudioInput
             notes: [NoteInput]
             position: Float
@@ -47,6 +49,7 @@ export default gql`
 
         ModifyUser(
             name: String
+            language: String
             audio: AudioInput
             notes: [NoteInput]
             position: Float

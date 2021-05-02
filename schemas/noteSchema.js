@@ -23,8 +23,8 @@ export default gql`
         AddNote(
             timestamp: Float!
             data: String!         
-            audioID: ID!           
-            userID: ID!
+            audioID: String!           
+            userID: String!
         ): String
     }
 `
