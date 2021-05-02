@@ -16,7 +16,7 @@ export default {
         },
         Notes: async (_, args) => {
             console.log('NOTES', args.userID)
-            return Note.find({ userID: args.userID });
+            return Note.find({ userID: args.userID }).populate('audioID').exec();
         }
     },
     Mutation: {
