@@ -1,4 +1,4 @@
-# mooc-audio-api
+# MOOC AUDIO - API
 
 The backend for the mooc audio app
 
