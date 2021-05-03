@@ -48,6 +48,7 @@ export default gql`
         ): User
 
         ModifyUser(
+            id: ID!
             name: String
             language: String
             audio: AudioInput

@@ -18,6 +18,7 @@ export default gql`
         date: String      
         artwork: String 
         duration: Float
+        index: Int
     }
 
     extend type Mutation {
@@ -30,6 +31,7 @@ export default gql`
             date: String!      
             artwork: String! 
             duration: Float!
+            index: Int!
         ): Audio
 
         DeleteAudio(
@@ -45,7 +47,8 @@ export default gql`
             genre: String   
             date: String      
             artwork: String 
-            duration: Float  
+            duration: Float
+            index: Int  
         ): Audio
     }
 `

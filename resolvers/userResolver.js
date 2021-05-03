@@ -33,9 +33,13 @@ export default {
             }
         },
         ModifyUser: async (_, args) => {
+            // console.log('MODIFY USER', JSON.stringify(args,'','\t'))
             try {
                 const { id, ...data } = args
-                const modifiedUser = await User.findByIdAndUpdate(id, { ...data }).save();
+                const modifiedUser = await User.findByIdAndUpdate(id,
+                    {
+                        ...data
+                    });
                 return modifiedUser
             } catch (e) {
                 console.error(e)

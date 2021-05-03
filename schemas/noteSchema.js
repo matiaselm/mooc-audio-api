@@ -26,5 +26,10 @@ export default gql`
             audioID: String!           
             userID: String!
         ): String
+
+        ModifyNote(
+            id: ID!
+            data: String!
+        ): Note
     }
 `

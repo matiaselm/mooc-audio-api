@@ -6,7 +6,7 @@ export default {
     Query: {
         Audios: async () => {
             try {
-                return Audio.find()
+                return Audio.find().sort({index: 1, title: 1}).exec()
             } catch (e) {
                 return e.message
             }

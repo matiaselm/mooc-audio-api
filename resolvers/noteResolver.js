@@ -42,6 +42,18 @@ export default {
                 console.log(e)
                 return e.message
             }
+        },
+        ModifyNote: async (_, args) => {
+            try {
+                const { id, data } = args
+                const modifiedNote = await Note.findByIdAndUpdate(id, {
+                    data: data
+                })
+                return modifiedNote
+            } catch (e) {
+                console.log(e)
+                return e.message
+            }
         }
     }
 }

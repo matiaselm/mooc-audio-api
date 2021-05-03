@@ -11,7 +11,8 @@ const audioSchema = new Schema({
     genre: String,      // Don't know if this'll be shown
     date: Date,         // When uploaded to the internet
     artwork: String,    // The artwork that'll be shown if available   
-    duration: Double     // Duration in seconds unformatted
+    duration: Double,     // Duration in seconds unformatted
+    index: Number       // index of the episode, used for ordering
 });
 
 export default mongoose.model('Audio', audioSchema);
