@@ -2,13 +2,13 @@
 
 The backend for the mooc audio app
 
-### The database has 3 collections:
+## The database has 3 collections:
 
  - Audios
  - Users
  - Notes
 
-### Example requests - user
+## Example requests - user
 
  - get user by id with notes and audio data
 ```
@@ -56,7 +56,7 @@ mutation{
 }
 ```
 
-### example queries, audio
+## example queries, audio
 
  - Get all audios
 ```
@@ -76,7 +76,7 @@ query{
 }
 ```
 
-### example queries, notes
+## example queries, notes
 
  - add note; response is a string message
 ```
