@@ -15,7 +15,7 @@ export default {
             return Note.find();
         },
         Notes: async (_, args) => {
-            console.log('NOTES', args.userID)
+            // console.log('NOTES', args.userID)
             return Note.find({ userID: args.userID }).populate('audioID').exec();
         }
     },
