@@ -2,7 +2,7 @@
 
 The backend for the mooc audio app, not all requests are listed yet
 
-[API-URL](http://matiasjj.jelastic.metropolia.fi) /graphql
+[API-URL](http://matiasjj.jelastic.metropolia.fi)
 
 ## The database has 3 collections:
 
