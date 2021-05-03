@@ -7,6 +7,9 @@ const connectMongo = async () => {
   try {
     const connection = await mongoose.connect(process.env.DB_URL,
         {
+          user: process.env.MONGO_USER,
+          pass: process.env.MONGO_PASS,
+          keepAlive: true,
           useNewUrlParser: true,
           useFindAndModify: false,
           useCreateIndex: true,
