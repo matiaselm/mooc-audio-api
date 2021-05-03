@@ -45,9 +45,9 @@ export default {
         },
         ModifyNote: async (_, args) => {
             try {
-                const { id, data } = args
-                const modifiedNote = await Note.findByIdAndUpdate(id, {
-                    data: data
+                const {id, ...body} = args
+                const modifiedNote = Note.findByIdAndUpdate(id, {
+                    ...body
                 })
                 return modifiedNote
             } catch (e) {
