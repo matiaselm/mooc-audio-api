@@ -37,9 +37,9 @@ const time = currentDate.getHours() + ":" + currentDate.getMinutes();
         }
       }
     });
+    await server.start();
     
     server.applyMiddleware({ app, path: '/graphql' });
-    await server.start();
     
     await new Promise(resolve => app.listen({ port: 3000 }, resolve));
     console.log(`[${time}] Server ready at localhost:3000`);

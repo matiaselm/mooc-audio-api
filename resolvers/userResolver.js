@@ -15,12 +15,12 @@ export default {
     },
     Mutation: {
         DeleteUser: async (_, args, context) => {
-            if(context.isLoggedIn) {
+            if(context.client) {
                 return User.findByIdAndDelete(args.id)
             } else return 'unauthorized';
         },
         AddUser: async (_, args, context) => {
-            if(context.isLoggedIn) {
+            if(context.client) {
                 try {
                     const data = {
                         name: '',
@@ -39,7 +39,7 @@ export default {
         },
         ModifyUser: async (_, args, context) => {
             // console.log('MODIFY USER', JSON.stringify(args,'','\t'))
-            if(context.isLoggedIn) {
+            if(context.client) {
                 try {
                     const { id, ...data } = args
                     const modifiedUser = await User.findByIdAndUpdate(id,

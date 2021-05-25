@@ -22,7 +22,7 @@ export default {
     },
     Mutation: {
         DeleteNote: async (_, args, context) => {
-            if(context.isLoggedIn) {
+            if(context.client) {
                 try {
                     Note.findByIdAndDelete(args.id)
                     return `note ${args.id} deleted`
@@ -32,7 +32,8 @@ export default {
             } else return 'unauthorized';
         },
         AddNote: async (_, args, context) => {
-            if(context.isLoggedIn) {
+            console.log('Context', context);
+            if(context.client) {
                 console.log('addnote', JSON.stringify(args))
                 try {
                     const note = await Note.create({
@@ -49,7 +50,7 @@ export default {
             } else return 'unauthorized';
         },
         ModifyNote: async (_, args, context) => {
-            if(context.isLoggedIn) {
+            if(context.client) {
                 try {
                     const { id, ...body } = args
                     const modifiedNote = Note.findByIdAndUpdate(id, {

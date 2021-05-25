@@ -18,7 +18,7 @@ export default {
     },
     Mutation: {
         AddAudio: async (_, args, context) => {
-            if (context.isLoggedIn) {
+            if(context.client) {
                 try {
                     const { ...body } = args
                     const audio = { ...body }
@@ -31,7 +31,7 @@ export default {
             } else return 'unauthorized';
         },
         DeleteAudio: async (_, args, context) => {
-            if (context.isLoggedIn) {
+            if(context.client) {
                 try {
                     await (await Audio.findByIdAndDelete(args.id)).save();
                     return `deleted audio ${args.id}`
@@ -41,7 +41,7 @@ export default {
             } else return 'unauthorized';
         },
         ModifyAudio: async (_, args, context) => {
-            if (context.isLoggedIn) {
+            if(context.client) {
                 try {
                     const { id, ...body } = args
                     return await Audio.findByIdAndUpdate(id, { ...body }).save();

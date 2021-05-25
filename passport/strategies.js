@@ -1,23 +1,24 @@
 'use strict';
 import passport from 'passport';
-import passportJWT from 'passport-jwt';
+import passportJWT from 'passport-jwt'; 
+
+import BearerStrategy from 'passport-http-bearer';
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 import dotenv from 'dotenv';
 
 console.log('secret', process.env.JWT_SECRET);
 // JWT strategy for handling bearer token
-passport.use(new JWTStrategy({
-      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET,
-    },
-    async (jwtPayload, done) => {
-      console.log('payload', jwtPayload);
+passport.use(new BearerStrategy(
+    (token, done) => {
+      console.log('token', token);
       try {
-        if(jwtPayload.token === process.env.TOKEN) client = { loggedIn: true };
+        let authenticated = false;
 
-        if (client !== null) {
-          return done(null, client);
+        if(token === process.env.TOKEN) authenticated = true;
+
+        if (authenticated) {
+          return done(null, authenticated);
         } else {
           return done(null, false);
         }
