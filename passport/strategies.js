@@ -1,11 +1,11 @@
 'use strict';
 import passport from 'passport';
-import {Strategy} from 'passport-local';
-import bcrypt from 'bcrypt';
 import passportJWT from 'passport-jwt';
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
+import dotenv from 'dotenv';
 
+console.log('secret', process.env.JWT_SECRET);
 // JWT strategy for handling bearer token
 passport.use(new JWTStrategy({
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
@@ -14,11 +14,10 @@ passport.use(new JWTStrategy({
     async (jwtPayload, done) => {
       console.log('payload', jwtPayload);
       try {
-        let user = null;
-        if(jwtPayload.username === process.env.USER) user = {id: 1, username: process.env.USER};
+        if(jwtPayload.token === process.env.TOKEN) client = { loggedIn: true };
 
-        if (user !== null) {
-          return done(null, user);
+        if (client !== null) {
+          return done(null, client);
         } else {
           return done(null, false);
         }

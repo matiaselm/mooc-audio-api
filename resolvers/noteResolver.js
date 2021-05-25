@@ -1,6 +1,7 @@
 'use strict';
 import Note from "../models/Note.js";
 import audio from '../models/Audio.js';
+import checkAuth from '../passport/authenticate.js';
 
 export default {
     User: {
@@ -20,40 +21,46 @@ export default {
         }
     },
     Mutation: {
-        DeleteNote: async (_, args) => {
-            try {
-                Note.findByIdAndDelete(args.id)
-                return `note ${args.id} deleted`
-            } catch (e) {
-                return e.message
-            }
+        DeleteNote: async (_, args, context) => {
+            if(context.isLoggedIn) {
+                try {
+                    Note.findByIdAndDelete(args.id)
+                    return `note ${args.id} deleted`
+                } catch (e) {
+                    return e.message
+                }
+            } else return 'unauthorized';
         },
-        AddNote: async (_, args) => {
-            console.log('addnote', JSON.stringify(args))
-            try {
-                const note = await Note.create({
-                    timestamp: args.timestamp,
-                    data: args.data,
-                    audioID: args.audioID,
-                    userID: args.userID
-                })
-                return `Note ${note.data} ${note.id} created for user ${note.userID}`
-            } catch (e) {
-                console.log(e)
-                return e.message
-            }
+        AddNote: async (_, args, context) => {
+            if(context.isLoggedIn) {
+                console.log('addnote', JSON.stringify(args))
+                try {
+                    const note = await Note.create({
+                        timestamp: args.timestamp,
+                        data: args.data,
+                        audioID: args.audioID,
+                        userID: args.userID
+                    })
+                    return `Note ${note.data} ${note.id} created for user ${note.userID}`
+                } catch (e) {
+                    console.log(e)
+                    return e.message
+                }
+            } else return 'unauthorized';
         },
-        ModifyNote: async (_, args) => {
-            try {
-                const {id, ...body} = args
-                const modifiedNote = Note.findByIdAndUpdate(id, {
-                    ...body
-                })
-                return modifiedNote
-            } catch (e) {
-                console.log(e)
-                return e.message
-            }
+        ModifyNote: async (_, args, context) => {
+            if(context.isLoggedIn) {
+                try {
+                    const { id, ...body } = args
+                    const modifiedNote = Note.findByIdAndUpdate(id, {
+                        ...body
+                    })
+                    return modifiedNote
+                } catch (e) {
+                    console.log(e)
+                    return e.message
+                }
+            } else return 'unauthorized';
         }
     }
 }

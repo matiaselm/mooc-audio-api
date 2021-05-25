@@ -1,13 +1,15 @@
 'use strict';
 import passport from './strategies.js';
 
-export default (req, res) => {
+const checkAuth = (req, res) => {
   return new Promise((resolve, reject) => {
-    passport.authenticate('jwt', (err, user) => {
-      if (err || !user) {
+    passport.authenticate('jwt', (err, client) => {
+      if (err || !client) {
         resolve(false);
       }
-      resolve(user);
+      resolve(client);
     })(req, res);
   });
 };
+
+export default checkAuth;
