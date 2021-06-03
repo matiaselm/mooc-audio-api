@@ -4,6 +4,14 @@ The backend for the [mooc audio app](https://github.com/matiaselm/mooc-audio-app
 
 [API-URL](http://matiasjj.jelastic.metropolia.fi)
 
+Installing to local machine:
+ - Make sure you have node and npm installed
+ - Git clone the repo
+ - Run "npm install" from project root
+ - set up .env to have all the needed variables. I.E mongodb address
+ - From project root, run "node server.js" and the server should start. 
+ - Use the resources from localhost:3000/graphql 
+
 ## The database has 3 collections:
 
  - Audios
