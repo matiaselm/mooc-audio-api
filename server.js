@@ -26,6 +26,8 @@ const time = currentDate.getHours() + ":" + currentDate.getMinutes();
     const server = new ApolloServer({
       typeDefs: schemas,
       resolvers,
+      introspection: false,  
+      playground: false,
       context: async ({ req, res }) => {
         try {
           const client = await checkAuth(req, res);
